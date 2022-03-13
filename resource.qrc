@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>gfx/icons/file_open.svg</file>
+        <file>gfx/icons/close.svg</file>
+        <file>gfx/icons/close_hover.svg</file>
+        <file>gfx/icons/file_open_hover.svg</file>
+    </qresource>
+</RCC>
