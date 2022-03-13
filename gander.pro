@@ -17,17 +17,17 @@ QMAKE_CXXFLAGS_RELEASE += -O3
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 SOURCES += \
-    jsontab.cpp \
-    main.cpp \
-    mainwindow.cpp
+    src/jsontab.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp
 
 HEADERS += \
-    jsontab.h \
-    mainwindow.h
+    src/jsontab.h \
+    src/mainwindow.h
 
 FORMS += \
-    jsontab.ui \
-    mainwindow.ui
+    ui/jsontab.ui \
+    ui/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
