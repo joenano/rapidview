@@ -25,11 +25,11 @@ QFrame {
 }
 
 QFrame#fr_topbar {
-	border-bottom: 1px solid #181818;
+	border-bottom: 1px solid #232323;
 }
 
 QFrame#fr_info {
-	border-left: 1px solid #181818;
+	border-left: 1px solid #232323;
 }</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -201,7 +201,7 @@ QPushButton#btn_topbar_settings::hover {
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="toolTip">
-          <string>Save Changes to JSON</string>
+          <string>Settings</string>
          </property>
          <property name="text">
           <string/>
@@ -277,21 +277,23 @@ QTabBar::close-button:hover {
  QTabBar::tab {
 	width: 161px;
 	padding: 7px;
+	margin-right: 1px;
 	margin-top: 7px;
-	background-color: #303030;
-	color: #c3c3c3;
+	background-color: #232323;
+	color: #838383;
 	border-top-right-radius:3px;
 	border-top-left-radius: 3px;
 }
 
 QTabBar::tab:selected { 
-  	background: #404040;
+  	background: #303030;
+	color: #c3c3c3;
   	margin-bottom: -1px; 
 }
 
 QFrame {
 	border: 0;
-	background: #404040;
+	background: #303030;
 }
 
 QPushButton {
@@ -412,7 +414,7 @@ QPushButton {
                     <string/>
                    </property>
                    <property name="icon">
-                    <iconset resource="resource.qrc">
+                    <iconset resource="../resource.qrc">
                      <normaloff>:/gfx/icons/file_open.svg</normaloff>:/gfx/icons/file_open.svg</iconset>
                    </property>
                    <property name="iconSize">
@@ -496,7 +498,7 @@ QPushButton {
   </widget>
  </widget>
  <resources>
-  <include location="resource.qrc"/>
+  <include location="../resource.qrc"/>
  </resources>
  <connections/>
 </ui>
