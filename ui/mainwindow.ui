@@ -30,6 +30,58 @@ QFrame#fr_topbar {
 
 QFrame#fr_info {
 	border-left: 1px solid #232323;
+}
+
+QScrollBar:vertical {
+    border: none;
+	border-radius: 4px;
+	background: #282828;
+    width: 11px;    
+	margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::handle:vertical {         
+	min-height: 21px;
+	border-radius: 4px;
+	background: #535353;
+}
+
+QScrollBar::add-line:vertical {       
+	height: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+	height: 0 px;
+    subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+
+QScrollBar:horizontal {
+    border: none;
+	border-radius: 4px;
+	background: #282828;
+    height: 11px;    
+	margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::handle:horizontal {         
+	min-width: 0px;
+	border-radius: 4px;
+	background-color: #535353;
+}
+
+QScrollBar::add-line:horizontal {       
+	width: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+	width: 0 px;
+    subcontrol-position: top;
+	subcontrol-origin: margin;
 }</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -61,6 +113,11 @@ QFrame#fr_info {
         <width>16777215</width>
         <height>49</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <stylestrategy>PreferAntialias</stylestrategy>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -113,13 +170,13 @@ QPushButton#btn_topbar_settings::hover {
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>35</height>
+           <height>34</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>35</height>
+           <height>34</height>
           </size>
          </property>
          <property name="cursor">
@@ -245,11 +302,17 @@ QPushButton#btn_topbar_settings::hover {
         <number>0</number>
        </property>
        <item>
-        <widget class="QSplitter" name="splitter">
+        <widget class="QSplitter" name="splitter_main">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
          <widget class="QTabWidget" name="tabs_main">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <family>Varela Round</family>
@@ -313,9 +376,9 @@ QPushButton {
            <bool>true</bool>
           </property>
           <property name="movable">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
-          <widget class="QWidget" name="tab_open">
+          <widget class="QWidget" name="tab_welcome">
            <attribute name="title">
             <string>Welcome</string>
            </attribute>
@@ -482,12 +545,59 @@ QPushButton {
           </widget>
          </widget>
          <widget class="QFrame" name="fr_info">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>56</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <stylestrategy>PreferAntialias</stylestrategy>
+           </font>
+          </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QFrame" name="fr_info_main">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>
