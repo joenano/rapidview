@@ -12,5 +12,7 @@
         <file>gfx/icons/double_arrow_left_hover.svg</file>
         <file>gfx/icons/double_arrow_right.svg</file>
         <file>gfx/icons/double_arrow_right_hover.svg</file>
+        <file>gfx/icons/save_as.svg</file>
+        <file>gfx/icons/save_as_hover.svg</file>
     </qresource>
 </RCC>

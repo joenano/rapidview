@@ -161,12 +161,15 @@ QTreeView::item::selected {
            <widget class="QTreeView" name="tree_json">
             <property name="font">
              <font>
-              <family>Hack Nerd Font Mono</family>
-              <pointsize>9</pointsize>
+              <family>Hack</family>
+              <pointsize>8</pointsize>
              </font>
             </property>
             <property name="editTriggers">
              <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="uniformRowHeights">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
