@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>633</width>
-    <height>510</height>
+    <width>701</width>
+    <height>578</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Gander</string>
+   <string>RapidView</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -155,6 +155,14 @@ QPushButton#btn_topbar_settings{
 
 QPushButton#btn_topbar_settings::hover {
 	image: url(:/gfx/icons/settings_hover.svg);
+}
+
+QPushButton#btn_topbar_github {
+	image: url(:/gfx/icons/github.svg);
+}
+
+QPushButton#btn_topbar_github::hover {
+	image: url(:/gfx/icons/github_hover.svg);
 }</string>
       </property>
       <property name="frameShape">
@@ -222,7 +230,7 @@ QPushButton#btn_topbar_settings::hover {
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="toolTip">
-          <string>Save Changes to JSON</string>
+          <string>Save JSON</string>
          </property>
          <property name="text">
           <string/>
@@ -253,7 +261,7 @@ QPushButton#btn_topbar_settings::hover {
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="toolTip">
-          <string>Save Changes to JSON</string>
+          <string>Save JSON as</string>
          </property>
          <property name="text">
           <string/>
@@ -278,6 +286,37 @@ QPushButton#btn_topbar_settings::hover {
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_topbar_github">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>31</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>View on Github</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>21</width>
+           <height>21</height>
+          </size>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="btn_topbar_settings">

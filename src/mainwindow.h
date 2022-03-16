@@ -14,6 +14,13 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    struct Settings {
+        bool save_json_pretty;
+
+        Settings() : save_json_pretty(false) {}
+    };
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -21,13 +28,14 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    std::vector<rapidjson::Document*> documents;
+    Settings settings;
+
+    std::vector<JsonTab::JsonFile*> open_documents;
 
     void close_tab(const int index);
     void open_json();
-    void msg_box(const QString msg, const QString title="Error");
+    void display_msg_box(const QString msg, const QString title="Error");
     QByteArray read_file(const QString filename);
-    void tweak_ui();
-
+//    void save_json(const QString filename, JsonTab::JsonFile *json);
 };
 #endif // MAINWINDOW_H

@@ -89,7 +89,7 @@
 	border-bottom-right-radius:3px;
 	border-bottom-left-radius: 3px;
 	border-top-right-radius: 0;
-	border-top-right-radius: 0;
+	border-top-left-radius: 0;
 }
 
 QTabBar::tab:selected { 
@@ -123,12 +123,41 @@ QPushButton {
 	border: none;
 }
 
+QTreeView::branch {
+	padding: 7px;
+}
+
+QTreeView::branch:has-siblings:!adjoins-item {
+    border-image: url(://gfx/icons/treeview/vline.png) 0;
+}
+
+QTreeView::branch:has-siblings:adjoins-item {
+    border-image: url(://gfx/icons/treeview/branch-more.png) 0;
+}
+
+QTreeView::branch:!has-children:!has-siblings:adjoins-item {
+    border-image: url(://gfx/icons/treeview/branch-end.png) 0;
+}
+
+QTreeView::branch:has-children:!has-siblings:closed,
+QTreeView::branch:closed:has-children:has-siblings {
+        border-image: none;
+        image: url(://gfx/icons/treeview/branch-closed.svg);
+}
+
+QTreeView::branch:open:has-children:!has-siblings,
+QTreeView::branch:open:has-children:has-siblings  {
+        border-image: none;
+		padding: 5px;
+        image: url(://gfx/icons/treeview/branch-open.svg);
+}
+
 QTreeView::branch::selected {
     background: #535353;
 }
 
 QTreeView::item {
-	padding: 3px;
+	padding: 3;
 	color: #f3f3f3;
 }
 
@@ -171,6 +200,9 @@ QTreeView::item::selected {
             <property name="uniformRowHeights">
              <bool>true</bool>
             </property>
+            <attribute name="headerVisible">
+             <bool>false</bool>
+            </attribute>
            </widget>
           </item>
          </layout>
@@ -201,19 +233,6 @@ QTreeView::item::selected {
           <property name="bottomMargin">
            <number>14</number>
           </property>
-          <item>
-           <widget class="QPlainTextEdit" name="text_json">
-            <property name="font">
-             <font>
-              <family>Hack</family>
-              <pointsize>9</pointsize>
-             </font>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </widget>

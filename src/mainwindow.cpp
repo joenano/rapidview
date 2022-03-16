@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     connect(ui->btn_open_json, &QPushButton::clicked, this, &MainWindow::open_json);
     connect(ui->btn_topbar_open, &QPushButton::clicked, this, &MainWindow::open_json);
+//    connect(ui->btn_topbar_save, &QPushButton::clicked, this, &MainWindow::save);
     connect(ui->tabs_main->tabBar(), &QTabBar::tabCloseRequested, this, &MainWindow::close_tab);
 }
 
@@ -27,49 +28,69 @@ MainWindow::~MainWindow()
 
 void MainWindow::close_tab(const int index)
 {
+    // to close a tab you must manually free the tab widget and remove the tab
     QWidget *widget = ui->tabs_main->widget(index);
     ui->tabs_main->removeTab(index);
     delete widget;
 
-    if((int)documents.size() > index && documents[index]) {
-        delete documents[index];
-        documents.erase(documents.begin() + index);
+    // remove corresponding JsonFile from document vector
+    if((int)open_documents.size() > index && open_documents[index]) {
+        delete open_documents[index]->doc;
+        delete open_documents[index];
+        open_documents.erase(open_documents.begin() + index);
     }
 }
 
 void MainWindow::open_json()
 {
+    // set Desktop as default path for file explorer
     static QString path = QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).at(0);
 
+    // get filename from file explorer
     const QString filename = QFileDialog::getOpenFileName(this, tr("Open JSON"), path);
 
+    // save path of selected file for reopening file explorer
     path = QFileInfo(filename).path();
 
-    if(!filename.isEmpty()) {
+    QElapsedTimer t;
+    t.start();
 
-        QByteArray data = read_file(filename);
+    if(!filename.isEmpty()) {
+        // parse json from file
+        QByteArray file = read_file(filename);
 
         rapidjson::Document *doc = new rapidjson::Document;
-        doc->ParseInsitu(data.data());
+        doc->ParseInsitu(file.data());
 
-        if(doc->HasParseError()) {
+        // free pointer to document if not valid json
+        if(doc && doc->HasParseError()) {
             delete doc;
-            msg_box("Failed to parse JSON from: " + filename, "Invalid JSON");
+            display_msg_box("Failed to parse JSON from: " + filename, "Invalid JSON");
         }
         else {
-            documents.push_back(doc);
+            // store filename and pointer to parsed json in vector
+            JsonTab::JsonFile *json = new JsonTab::JsonFile(filename, doc);
+            open_documents.emplace_back(json);
 
-            JsonTab *tab = new JsonTab(this, doc);
-            int index = ui->tabs_main->addTab(tab, filename.mid(path.length() + 1));
+            // create json tab widget
+            JsonTab *tab = new JsonTab(json);
+
+            // close welcome tab if still open
+            QWidget *widget = ui->tabs_main->widget(0);
+
+            if(widget && widget->objectName() == "tab_welcome")
+                close_tab(0);
+
+            // add json tab to the main tab widget and switch focus
+            QString tab_title = filename.mid(path.length() + 1);
+            int index = ui->tabs_main->addTab(tab, tab_title);
             ui->tabs_main->setCurrentIndex(index);
-
-//            if(ui->tabs_main->widget(0)->objectName() == "tab_open")
-//                close_tab(0);
         }
     }
+    qDebug() << t.elapsed();
 }
 
-void MainWindow::msg_box(const QString msg, const QString title)
+void MainWindow::display_msg_box(const QString msg, const QString title)
 {
     QMessageBox msg_box;
     msg_box.setText(msg);
@@ -82,11 +103,9 @@ void MainWindow::msg_box(const QString msg, const QString title)
 QByteArray MainWindow::read_file(const QString filename)
 {
     QFile file(filename);
-
     QByteArray buffer;
 
-    if(file.open(QFile::ReadOnly))
-    {
+    if(file.open(QFile::ReadOnly)) {
         buffer = file.readAll();
         file.close();
     }
@@ -94,7 +113,14 @@ QByteArray MainWindow::read_file(const QString filename)
     return buffer;
 }
 
-void MainWindow::tweak_ui()
-{
+//void MainWindow::save_json(const QString filename, JsonTab::JsonFile *json)
+//{
+//    QFile file(filename);
 
-}
+//    if(file.open(QFile::WriteOnly)) {
+//        rapidjson::StringBuffer buffer;
+//        rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
+//        json->doc->Accept(writer);
+//        file.write(buffer.GetString());
+//    }
+//}
