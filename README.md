@@ -1,2 +1,2 @@
 # rapidview
-GUI JSON viewer and editor
+GUI JSON viewer
