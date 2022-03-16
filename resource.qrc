@@ -21,5 +21,7 @@
         <file>gfx/icons/treeview/branch-end.png</file>
         <file>gfx/icons/treeview/branch-more.png</file>
         <file>gfx/icons/treeview/vline.png</file>
+        <file>gfx/icons/github.svg</file>
+        <file>gfx/icons/github_hover.svg</file>
     </qresource>
 </RCC>
