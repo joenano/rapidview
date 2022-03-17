@@ -1,24 +1,28 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QDesktopServices>
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QStandardPaths>
 #include <QTabBar>
 
-#include <QDebug>
-#include <QElapsedTimer>
+using namespace rapidjson;
 
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
+    load_settings();
+
     connect(ui->btn_open_json, &QPushButton::clicked, this, &MainWindow::open_json);
     connect(ui->btn_topbar_open, &QPushButton::clicked, this, &MainWindow::open_json);
-//    connect(ui->btn_topbar_save, &QPushButton::clicked, this, &MainWindow::save);
     connect(ui->tabs_main->tabBar(), &QTabBar::tabCloseRequested, this, &MainWindow::close_tab);
+    connect(ui->btn_topbar_github, &QPushButton::clicked, this, []() {
+        QDesktopServices::openUrl(QUrl("https://github.com/joenano/rapidview"));
+    });
 }
 
 MainWindow::~MainWindow()
@@ -41,6 +45,16 @@ void MainWindow::close_tab(const int index)
     }
 }
 
+void MainWindow::display_msg_box(const QString msg, const QString title)
+{
+    QMessageBox msg_box;
+    msg_box.setText(msg);
+    msg_box.setWindowTitle(title);
+    msg_box.setIcon(QMessageBox::Critical);
+    msg_box.addButton(QMessageBox::Ok);
+    msg_box.exec();
+}
+
 void MainWindow::open_json()
 {
     // set Desktop as default path for file explorer
@@ -52,14 +66,13 @@ void MainWindow::open_json()
     // save path of selected file for reopening file explorer
     path = QFileInfo(filename).path();
 
-    QElapsedTimer t;
-    t.start();
-
     if(!filename.isEmpty()) {
-        // parse json from file
         QByteArray file = read_file(filename);
 
-        rapidjson::Document *doc = new rapidjson::Document;
+        if(file.isEmpty())
+            display_msg_box("Empty file: " + filename, "Empty File");
+
+        Document *doc = new Document;
         doc->ParseInsitu(file.data());
 
         // free pointer to document if not valid json
@@ -73,7 +86,7 @@ void MainWindow::open_json()
             open_documents.emplace_back(json);
 
             // create json tab widget
-            JsonTab *tab = new JsonTab(json);
+            JsonTab *tab = new JsonTab(json, settings);
 
             // close welcome tab if still open
             QWidget *widget = ui->tabs_main->widget(0);
@@ -87,17 +100,21 @@ void MainWindow::open_json()
             ui->tabs_main->setCurrentIndex(index);
         }
     }
-    qDebug() << t.elapsed();
 }
 
-void MainWindow::display_msg_box(const QString msg, const QString title)
+void MainWindow::load_settings()
 {
-    QMessageBox msg_box;
-    msg_box.setText(msg);
-    msg_box.setWindowTitle(title);
-    msg_box.setIcon(QMessageBox::Critical);
-    msg_box.addButton(QMessageBox::Ok);
-    msg_box.exec();
+    QByteArray json = read_file("../settings/settings.json");
+
+    if(json.isEmpty()) {
+        settings = new Settings();
+    }
+    else {
+        Document *doc = new Document;
+        doc->ParseInsitu(json.data());
+
+        settings = new Settings(doc);
+    }
 }
 
 QByteArray MainWindow::read_file(const QString filename)
@@ -112,15 +129,3 @@ QByteArray MainWindow::read_file(const QString filename)
 
     return buffer;
 }
-
-//void MainWindow::save_json(const QString filename, JsonTab::JsonFile *json)
-//{
-//    QFile file(filename);
-
-//    if(file.open(QFile::WriteOnly)) {
-//        rapidjson::StringBuffer buffer;
-//        rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
-//        json->doc->Accept(writer);
-//        file.write(buffer.GetString());
-//    }
-//}

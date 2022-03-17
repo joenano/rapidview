@@ -4,9 +4,7 @@
 #include <QWidget>
 #include <QStandardItemModel>
 
-#include "rapidjson/document.h"
-#include "rapidjson/prettywriter.h"
-#include "rapidjson/stringbuffer.h"
+#include "settings.h"
 
 
 namespace Ui {
@@ -21,17 +19,18 @@ public:
     struct JsonFile {
         const QString filename;
         const rapidjson::Document *doc;
-        const rapidjson::StringBuffer buffer;
 
         JsonFile(const QString filename, const rapidjson::Document *doc)
             : filename(filename), doc(doc) {}
     };
 
-    explicit JsonTab(JsonFile *json, QWidget *parent = nullptr);
+    explicit JsonTab(JsonFile *json, Settings *settings, QWidget *parent = nullptr);
     ~JsonTab();
 
 private:
     Ui::JsonTab *ui;
+
+    Settings *settings;
 
     QStandardItemModel *model_json;
 

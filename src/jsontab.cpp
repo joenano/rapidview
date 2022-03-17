@@ -1,23 +1,23 @@
 #include "jsontab.h"
 #include "ui_jsontab.h"
 
-#include <QDebug>
+using namespace rapidjson;
 
 
-JsonTab::JsonTab(JsonFile *json, QWidget *parent) : QWidget(parent), ui(new Ui::JsonTab)
+JsonTab::JsonTab(JsonFile *json, Settings *settings, QWidget *parent)
+    : QWidget(parent), ui(new Ui::JsonTab), settings(settings)
 {
     ui->setupUi(this);
-
     load_model_json(*json->doc);
 }
 
 JsonTab::~JsonTab()
 {
-    delete model_json;
     delete ui;
+    delete model_json;
 }
 
-void JsonTab::load_model_json(const rapidjson::Value &v)
+void JsonTab::load_model_json(const Value &v)
 {
     model_json = new QStandardItemModel;
 
@@ -29,14 +29,10 @@ void JsonTab::load_model_json(const rapidjson::Value &v)
     ui->tree_json->setModel(model_json);
 }
 
-void JsonTab::recurse_json(const rapidjson::Value &v, QStandardItem *parent)
+void JsonTab::recurse_json(const Value &v, QStandardItem *parent)
 {
-    static auto is_iterable = [](rapidjson::Type type) {
-        return type == rapidjson::kObjectType || type == rapidjson::kArrayType;
-    };
-
     if(v.IsObject()) {
-        parent->setIcon(type_icons[rapidjson::kObjectType]);
+        parent->setIcon(type_icons[kObjectType]);
 
         for(const auto &element: v.GetObject()) {
             QString key = element.name.GetString();
@@ -45,7 +41,7 @@ void JsonTab::recurse_json(const rapidjson::Value &v, QStandardItem *parent)
 
             auto value_type = element.value.GetType();
 
-            if(is_iterable(value_type)) {
+            if(value_type == kObjectType || value_type == kArrayType) {
                 child->setData(key, Qt::DisplayRole);
                 recurse_json(element.value, child);
             }
@@ -55,7 +51,7 @@ void JsonTab::recurse_json(const rapidjson::Value &v, QStandardItem *parent)
         }
     }
     else if(v.IsArray()) {
-        parent->setIcon(type_icons[rapidjson::kArrayType]);
+        parent->setIcon(type_icons[kArrayType]);
 
         unsigned int i = 0;
         for(const auto &element: v.GetArray()) {
@@ -65,7 +61,7 @@ void JsonTab::recurse_json(const rapidjson::Value &v, QStandardItem *parent)
 
             auto value_type = element.GetType();
 
-            if(is_iterable(value_type)) {
+            if(value_type == kObjectType || value_type == kArrayType) {
                 child->setData(key, Qt::DisplayRole);
                 recurse_json(element, child);
             }
@@ -76,37 +72,45 @@ void JsonTab::recurse_json(const rapidjson::Value &v, QStandardItem *parent)
     }
 }
 
-void JsonTab::set_item_text(QStandardItem *item, const QString &key,
-                            const rapidjson::Value &v, const rapidjson::Type value_type)
+void JsonTab::set_item_text(QStandardItem *item, const QString &key, const Value &v, const Type value_type)
 {
-    if(value_type == rapidjson::kStringType) {
+    const auto set_item_data = [&](QStandardItem *item, QString data, Type type) {
+        if(settings->colour_code_types)
+            item->setIcon(type_icons[type]);
+        item->setData(data, Qt::DisplayRole);
+    };
+
+    if(value_type == kStringType) {
         QByteArray value = v.GetString();
         QString data = QString("%1: \"%2\"").arg(key, value);
-        item->setData(data, Qt::DisplayRole);
+        set_item_data(item, data, value_type);
     }
-    else if(value_type == rapidjson::kNumberType) {
+    else if(value_type == kNumberType) {
         QString value = string_from_number(v);
         QString data = QString("%1: %2").arg(key, value);
-        item->setData(data, Qt::DisplayRole);
+        set_item_data(item, data, value_type);
     }
-    else if(value_type == rapidjson::kNullType) {
+    else if(value_type == kNullType) {
         QString data = QString("%1: null").arg(key);
-        item->setData(data, Qt::DisplayRole);
+        set_item_data(item, data, value_type);
     }
-    else if(value_type == rapidjson::kFalseType || value_type == rapidjson::kTrueType) {
+    else if(value_type == kFalseType || value_type == kTrueType) {
         bool value = v.GetBool();
         QString data = QString("%1: %2").arg(key, value? "true" : "false");
-        item->setData(data, Qt::DisplayRole);
+        set_item_data(item, data, value_type);
     }
 }
 
-QString JsonTab::string_from_number(const rapidjson::Value &v)
+QString JsonTab::string_from_number(const Value &v)
 {
     QString number;
 
-    if(v.IsInt64()) {
-
-    }
+    if(v.IsDouble())
+        number = QString::number(v.GetDouble());
+    else if(v.IsInt64())
+        number = QString::number(v.GetInt64());
+    else if(v.IsUint64())
+        number = QString::number(v.GetUint64());
 
     return number;
 }
