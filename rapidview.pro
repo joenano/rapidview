@@ -19,11 +19,13 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 SOURCES += \
     src/jsontab.cpp \
     src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    src/settings.cpp \
 
 HEADERS += \
     src/jsontab.h \
-    src/mainwindow.h
+    src/mainwindow.h \
+    src/settings.h
 
 FORMS += \
     ui/jsontab.ui \

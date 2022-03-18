@@ -27,5 +27,6 @@
         <file>gfx/icons/types/number.svg</file>
         <file>gfx/icons/types/object.svg</file>
         <file>gfx/icons/types/string.svg</file>
+        <file>gfx/icons/text.svg</file>
     </qresource>
 </RCC>

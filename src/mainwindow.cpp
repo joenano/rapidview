@@ -67,10 +67,8 @@ void MainWindow::open_json()
     path = QFileInfo(filename).path();
 
     if(!filename.isEmpty()) {
+        // parse json from file
         QByteArray file = read_file(filename);
-
-        if(file.isEmpty())
-            display_msg_box("Empty file: " + filename, "Empty File");
 
         Document *doc = new Document;
         doc->ParseInsitu(file.data());
