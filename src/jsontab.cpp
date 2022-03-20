@@ -9,6 +9,8 @@ JsonTab::JsonTab(JsonFile *json, Settings *settings, QWidget *parent)
 {
     ui->setupUi(this);
     load_model_json(*json->doc);
+
+    ui->tree_json->expand(model_json->index(0, 0));
 }
 
 JsonTab::~JsonTab()

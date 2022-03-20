@@ -61,7 +61,7 @@ void MainWindow::open_json()
     static QString path = QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).at(0);
 
     // get filename from file explorer
-    const QString filename = QFileDialog::getOpenFileName(this, tr("Open JSON"), path);
+    const QString filename = QFileDialog::getOpenFileName(this, tr("Open JSON"), path, tr("JSON Files (*.json)"));
 
     // save path of selected file for reopening file explorer
     path = QFileInfo(filename).path();

@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-INCLUDEPATH += /usr/local/lib
+INCLUDEPATH += /usr/local/lib # path to rapidjson
 
 CONFIG  += c++17 no_keywords
 

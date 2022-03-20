@@ -4,16 +4,6 @@
         <file>gfx/icons/close.svg</file>
         <file>gfx/icons/close_hover.svg</file>
         <file>gfx/icons/file_open_hover.svg</file>
-        <file>gfx/icons/save.svg</file>
-        <file>gfx/icons/save_hover.svg</file>
-        <file>gfx/icons/settings.svg</file>
-        <file>gfx/icons/settings_hover.svg</file>
-        <file>gfx/icons/double_arrow_left.svg</file>
-        <file>gfx/icons/double_arrow_left_hover.svg</file>
-        <file>gfx/icons/double_arrow_right.svg</file>
-        <file>gfx/icons/double_arrow_right_hover.svg</file>
-        <file>gfx/icons/save_as.svg</file>
-        <file>gfx/icons/save_as_hover.svg</file>
         <file>gfx/icons/treeview/branch-closed.svg</file>
         <file>gfx/icons/treeview/branch-open.svg</file>
         <file>gfx/icons/treeview/branch-end.png</file>
@@ -27,6 +17,5 @@
         <file>gfx/icons/types/number.svg</file>
         <file>gfx/icons/types/object.svg</file>
         <file>gfx/icons/types/string.svg</file>
-        <file>gfx/icons/text.svg</file>
     </qresource>
 </RCC>
