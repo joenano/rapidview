@@ -8,9 +8,11 @@ JsonTab::JsonTab(JsonFile *json, Settings *settings, QWidget *parent)
     : QWidget(parent), ui(new Ui::JsonTab), settings(settings)
 {
     ui->setupUi(this);
+
+    // create tree model from json document
     load_model_json(*json->doc);
 
-    // expand the root node
+    // expand root node of tree
     ui->tree_json->expand(model_json->index(0, 0));
 }
 
@@ -24,37 +26,46 @@ void JsonTab::load_model_json(const Value &v)
 {
     model_json = new QStandardItemModel;
 
+    // create tree root node
     QStandardItem *json = new QStandardItem("JSON");
     model_json->appendRow(json);
 
+    // recursively traverse json and populate tree model
     recurse_json(json, v);
 
+    // display tree model on tab widget
     ui->tree_json->setModel(model_json);
 }
 
-void JsonTab::parse_element(QStandardItem *parent, const QString &key, const Value &v) {
+void JsonTab::parse_value(QStandardItem *parent, const QString &key, const Value &v)
+{
+    // create new tree node and add to parent
     QStandardItem *child = new QStandardItem;
     parent->appendRow(child);
 
     auto value_type = v.GetType();
 
+    // if json value type is object or array - set node data to key only and recurse further
     if(value_type == kObjectType || value_type == kArrayType) {
         child->setData(key, Qt::DisplayRole);
         recurse_json(child, v);
     }
     else {
-        set_item_text(child, key, v, value_type);
+        // else set node data to key and value
+        set_node_data(child, key, v, value_type);
     }
 }
 
 void JsonTab::recurse_json(QStandardItem *parent, const Value &v)
 {
+    // iterate object/array, get key/index and parse values
+
     if(v.IsObject()) {
         parent->setIcon(type_icons[kObjectType]);
 
         for(const auto &element: v.GetObject()) {
             QString key = element.name.GetString();
-            parse_element(parent, key, element.value);
+            parse_value(parent, key, element.value);
         }
     }
     else if(v.IsArray()) {
@@ -63,19 +74,21 @@ void JsonTab::recurse_json(QStandardItem *parent, const Value &v)
         unsigned int i = 0;
         for(const auto &element: v.GetArray()) {
             QString key = QString::number(i++);
-            parse_element(parent, key, element);
+            parse_value(parent, key, element);
         }
     }
 }
 
-void JsonTab::set_item_text(QStandardItem *item, const QString &key, const Value &v, const Type value_type)
+void JsonTab::set_node_data(QStandardItem *node, const QString &key, const Value &v, const Type value_type)
 {
-    const auto set_item_data = [&](QStandardItem *item, QString data, Type type) {
+
+    const auto set_data = [&](QStandardItem *node, QString data, Type type) {
         if(settings->colour_code_types)
-            item->setIcon(type_icons[type]);
-        item->setData(data, Qt::DisplayRole);
+            node->setIcon(type_icons[type]);
+        node->setData(data, Qt::DisplayRole);
     };
 
+    // tree node data - "key: value"
     QString data;
 
     if(value_type == kStringType) {
@@ -94,7 +107,7 @@ void JsonTab::set_item_text(QStandardItem *item, const QString &key, const Value
         data = QString("%1: %2").arg(key, value? "true" : "false");
     }
 
-    set_item_data(item, data, value_type);
+    set_data(node, data, value_type);
 }
 
 QString JsonTab::string_from_number(const Value &v)
