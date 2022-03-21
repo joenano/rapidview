@@ -27,30 +27,34 @@ void JsonTab::load_model_json(const Value &v)
     QStandardItem *json = new QStandardItem("JSON");
     model_json->appendRow(json);
 
-    recurse_json(v, json);
+    recurse_json(json, v);
 
     ui->tree_json->setModel(model_json);
 }
 
-void JsonTab::recurse_json(const Value &v, QStandardItem *parent)
+void JsonTab::parse_element(QStandardItem *parent, const QString &key, const Value &v) {
+    QStandardItem *child = new QStandardItem;
+    parent->appendRow(child);
+
+    auto value_type = v.GetType();
+
+    if(value_type == kObjectType || value_type == kArrayType) {
+        child->setData(key, Qt::DisplayRole);
+        recurse_json(child, v);
+    }
+    else {
+        set_item_text(child, key, v, value_type);
+    }
+}
+
+void JsonTab::recurse_json(QStandardItem *parent, const Value &v)
 {
     if(v.IsObject()) {
         parent->setIcon(type_icons[kObjectType]);
 
         for(const auto &element: v.GetObject()) {
             QString key = element.name.GetString();
-            QStandardItem *child = new QStandardItem;
-            parent->appendRow(child);
-
-            auto value_type = element.value.GetType();
-
-            if(value_type == kObjectType || value_type == kArrayType) {
-                child->setData(key, Qt::DisplayRole);
-                recurse_json(element.value, child);
-            }
-            else {
-                set_item_text(child, key, element.value, value_type);
-            }
+            parse_element(parent, key, element.value);
         }
     }
     else if(v.IsArray()) {
@@ -59,18 +63,7 @@ void JsonTab::recurse_json(const Value &v, QStandardItem *parent)
         unsigned int i = 0;
         for(const auto &element: v.GetArray()) {
             QString key = QString::number(i++);
-            QStandardItem *child = new QStandardItem;
-            parent->appendRow(child);
-
-            auto value_type = element.GetType();
-
-            if(value_type == kObjectType || value_type == kArrayType) {
-                child->setData(key, Qt::DisplayRole);
-                recurse_json(element, child);
-            }
-            else {
-                set_item_text(child, key, element, value_type);
-            }
+            parse_element(parent, key, element);
         }
     }
 }
@@ -83,25 +76,25 @@ void JsonTab::set_item_text(QStandardItem *item, const QString &key, const Value
         item->setData(data, Qt::DisplayRole);
     };
 
+    QString data;
+
     if(value_type == kStringType) {
-        QByteArray value = v.GetString();
-        QString data = QString("%1: \"%2\"").arg(key, value);
-        set_item_data(item, data, value_type);
+        QString value = v.GetString();
+        data = QString("%1: \"%2\"").arg(key, value);
     }
     else if(value_type == kNumberType) {
         QString value = string_from_number(v);
-        QString data = QString("%1: %2").arg(key, value);
-        set_item_data(item, data, value_type);
+        data = QString("%1: %2").arg(key, value);
     }
     else if(value_type == kNullType) {
-        QString data = QString("%1: null").arg(key);
-        set_item_data(item, data, value_type);
+        data = QString("%1: null").arg(key);
     }
     else if(value_type == kFalseType || value_type == kTrueType) {
         bool value = v.GetBool();
-        QString data = QString("%1: %2").arg(key, value? "true" : "false");
-        set_item_data(item, data, value_type);
+        data = QString("%1: %2").arg(key, value? "true" : "false");
     }
+
+    set_item_data(item, data, value_type);
 }
 
 QString JsonTab::string_from_number(const Value &v)

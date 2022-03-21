@@ -45,8 +45,8 @@ private:
     };
 
     void load_model_json(const rapidjson::Value &v);
-    void recurse_array(const rapidjson::Value &v, QStandardItem *parent);
-    void recurse_json(const rapidjson::Value &v, QStandardItem *parent);
+    void parse_element(QStandardItem *parent, const QString &key, const rapidjson::Value &v);
+    void recurse_json(QStandardItem *parent, const rapidjson::Value &v);
     void set_item_text(QStandardItem *item, const QString &key,
                        const rapidjson::Value &v, const rapidjson::Type value_type);
     QString string_from_number(const rapidjson::Value &v);
