@@ -44,12 +44,12 @@ private:
         QPixmap::fromImage(QImage(":/gfx/icons/types/number.svg")).scaled(7, 7)
     };
 
-    void load_model_json(const rapidjson::Value &v);
-    void parse_value(QStandardItem *parent, const QString &key, const rapidjson::Value &v);
-    void recurse_json(QStandardItem *parent, const rapidjson::Value &v);
+    void load_model_json(const rapidjson::Value &value);
+    void parse_value(QStandardItem *parent, const QString &key, const rapidjson::Value &value);
+    void recurse_json(QStandardItem *parent, const rapidjson::Value &value);
     void set_node_data(QStandardItem *node, const QString &key,
-                       const rapidjson::Value &v, const rapidjson::Type value_type);
-    QString string_from_number(const rapidjson::Value &v);
+                       const rapidjson::Value &value, const rapidjson::Type value_type);
+    QString string_from_number(const rapidjson::Value &value);
 };
 
 #endif // JSONTAB_H
