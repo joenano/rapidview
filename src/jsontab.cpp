@@ -81,6 +81,7 @@ void JsonTab::recurse_json(QStandardItem *parent, const Value &value)
 
 void JsonTab::set_node_data(QStandardItem *node, const QString &key, const Value &value, const Type value_type)
 {
+    // get json value and combine with key, then set as tree node data
 
     const auto set_data = [&](QStandardItem *node, QString data, Type type) {
         if(settings->colour_code_types)
