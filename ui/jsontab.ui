@@ -114,6 +114,9 @@ QTreeView::item::selected {
       </property>
       <item>
        <widget class="QTreeView" name="tree_json">
+        <property name="editTriggers">
+         <set>QAbstractItemView::EditKeyPressed</set>
+        </property>
         <property name="uniformRowHeights">
          <bool>true</bool>
         </property>

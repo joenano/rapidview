@@ -307,7 +307,16 @@ QPushButton#btn_topbar_github::hover {
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">QTabWidget::pane {
+           <string notr="true">QTabBar::scroller {
+	width: 42px;
+}
+
+QTabBar QToolButton {
+	background: #303030;
+    border-width: 1px;
+}
+
+QTabWidget::pane {
 	top: -1px;
 	border: 0;
 } 

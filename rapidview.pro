@@ -1,10 +1,10 @@
-QT       += core gui
+QT       += core gui svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += /usr/local/lib # path to rapidjson
 
-CONFIG  += c++17 no_keywords
+CONFIG  += c++17 no_keywords static
 
 QMAKE_CXXFLAGS += -fvisibility=hidden
 
