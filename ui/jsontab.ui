@@ -114,6 +114,12 @@ QTreeView::item::selected {
       </property>
       <item>
        <widget class="QTreeView" name="tree_json">
+        <property name="font">
+         <font>
+          <family>Hack</family>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
         <property name="editTriggers">
          <set>QAbstractItemView::EditKeyPressed</set>
         </property>
