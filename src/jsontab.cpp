@@ -4,62 +4,54 @@
 using namespace rapidjson;
 
 
-JsonTab::JsonTab(JsonFile *json, Settings *settings, QWidget *parent)
-    : QWidget(parent), ui(new Ui::JsonTab), settings(settings)
+JsonTab::JsonTab(JsonFile *json, Settings *settings, QWidget *parent):
+    QWidget(parent), json(json), ui(new Ui::JsonTab), settings(settings)
 {
     ui->setupUi(this);
 
-    // create tree model from json document
+    view = ui->tree_json;
+
     load_model_json(*json->doc);
 
-    // expand root node of tree
-    ui->tree_json->expand(model_json->index(0, 0));
+    ui->tree_json->expand(model->index(0, 0));
 }
 
 JsonTab::~JsonTab()
 {
     delete ui;
-    delete model_json;
+    delete model;
 }
 
 void JsonTab::load_model_json(const Value &value)
 {
-    model_json = new QStandardItemModel;
+    model = new QStandardItemModel;
 
-    // create tree root node
     QStandardItem *json = new QStandardItem("JSON");
-    model_json->appendRow(json);
+    model->appendRow(json);
 
-    // recursively traverse json and populate tree model
     recurse_json(json, value);
 
-    // display tree model on tab widget
-    ui->tree_json->setModel(model_json);
+    ui->tree_json->setModel(model);
 }
 
 void JsonTab::parse_value(QStandardItem *parent, const QString &key, const Value &value)
 {
-    // create new tree node and add to parent
     QStandardItem *child = new QStandardItem;
     parent->appendRow(child);
 
     auto value_type = value.GetType();
 
-    // if json value type is object or array - set node data to key only and recurse further
     if(value_type == kObjectType || value_type == kArrayType) {
         child->setData(key, Qt::DisplayRole);
         recurse_json(child, value);
     }
     else {
-        // else set node data to key and value
         set_node_data(child, key, value, value_type);
     }
 }
 
 void JsonTab::recurse_json(QStandardItem *parent, const Value &value)
 {
-    // iterate object/array, get key/index and parse values
-
     if(value.IsObject()) {
         parent->setIcon(type_icons[kObjectType]);
 
@@ -81,15 +73,12 @@ void JsonTab::recurse_json(QStandardItem *parent, const Value &value)
 
 void JsonTab::set_node_data(QStandardItem *node, const QString &key, const Value &value, const Type value_type)
 {
-    // get json value and combine with key, then set as tree node data
-
-    const auto set_data = [&](QStandardItem *node, QString data, Type type) {
+     const auto set_data = [&](QStandardItem *node, QString data, Type type) {
         if(settings->colour_code_types)
             node->setIcon(type_icons[type]);
         node->setData(data, Qt::DisplayRole);
     };
 
-    // tree node data - "key: value"
     QString data;
 
     if(value_type == kStringType) {

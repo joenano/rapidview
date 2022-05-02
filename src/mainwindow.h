@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "jsontab.h"
+#include "opentabs.h"
 #include "settings.h"
 
 
@@ -20,17 +20,22 @@ public:
     ~MainWindow();
 
 private:
+    JsonTab *in_focus;
+    OpenTabs *open_documents;
+    Settings *settings;
     Ui::MainWindow *ui;
 
-    Settings *settings;
-
-    std::vector<JsonTab::JsonFile*> open_documents;
+    QHash<QByteArray, QStandardItemModel*> subtree_models;
 
     void close_tab(const int index);
     void display_msg_box(const QString msg, const QString title="Error");
-    void open_json();
     void load_settings();
-    QByteArray read_file(const QString filename);
+    QByteArray make_pointer(const QByteArrayList &keys);
+    void open_json();
+    QByteArray read_file(const QString &filename);
+    void search(const QString &text);
+    QStandardItemModel *subtree(const JsonTab *tab, const QByteArray &ptr, const QByteArray &key);
+    void view_clicked(const QModelIndex &index);
 };
 
 #endif // MAINWINDOW_H

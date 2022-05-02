@@ -2,9 +2,7 @@ QT       += core gui svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-INCLUDEPATH += /usr/local/lib # path to rapidjson
-
-CONFIG  += c++17 no_keywords static
+CONFIG  += c++17 no_keywords
 
 QMAKE_CXXFLAGS += -fvisibility=hidden
 
@@ -20,11 +18,13 @@ SOURCES += \
     src/jsontab.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
+    src/opentabs.cpp \
     src/settings.cpp \
 
 HEADERS += \
     src/jsontab.h \
     src/mainwindow.h \
+    src/opentabs.h \
     src/settings.h
 
 FORMS += \

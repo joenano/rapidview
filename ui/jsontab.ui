@@ -40,55 +40,7 @@
 	background: #303030;
 	color: #e3e3e3;
 }
-
-QTreeView {
-	outline: 0;
-	border: none;
-}
-
-QTreeView::branch {
-	padding: 7px;
-}
-
-QTreeView::branch:has-siblings:!adjoins-item {
-    border-image: url(://gfx/icons/treeview/vline.png) 0;
-}
-
-QTreeView::branch:has-siblings:adjoins-item {
-    border-image: url(://gfx/icons/treeview/branch-more.png) 0;
-}
-
-QTreeView::branch:!has-children:!has-siblings:adjoins-item {
-    border-image: url(://gfx/icons/treeview/branch-end.png) 0;
-}
-
-QTreeView::branch:has-children:!has-siblings:closed,
-QTreeView::branch:closed:has-children:has-siblings {
-        border-image: none;
-        image: url(://gfx/icons/treeview/branch-closed.svg);
-}
-
-QTreeView::branch:open:has-children:!has-siblings,
-QTreeView::branch:open:has-children:has-siblings  {
-        border-image: none;
-		padding: 5px;
-        image: url(://gfx/icons/treeview/branch-open.svg);
-}
-
-QTreeView::branch::selected {
-    background: #535353;
-}
-
-QTreeView::item {
-	padding: 3;
-	color: #f3f3f3;
-}
-
-QTreeView::item::selected {
-	padding-left: 0;
-	background: #535353;
-	color: #e3e3e3;
-}</string>
+</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -116,8 +68,8 @@ QTreeView::item::selected {
        <widget class="QTreeView" name="tree_json">
         <property name="font">
          <font>
-          <family>Hack</family>
-          <pointsize>8</pointsize>
+          <family>DejaVu Sans Mono</family>
+          <pointsize>10</pointsize>
          </font>
         </property>
         <property name="editTriggers">
