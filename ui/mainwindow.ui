@@ -613,13 +613,13 @@ QPushButton {
          <number>14</number>
         </property>
         <property name="leftMargin">
-         <number>14</number>
+         <number>7</number>
         </property>
         <property name="topMargin">
          <number>14</number>
         </property>
         <property name="rightMargin">
-         <number>14</number>
+         <number>7</number>
         </property>
         <property name="bottomMargin">
          <number>14</number>

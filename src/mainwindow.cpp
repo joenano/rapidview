@@ -153,7 +153,7 @@ void MainWindow::search(const QString &text)
         ui->view_object->expand(subtree_models[ptr]->index(0, 0));
     }
     else {
-        auto model = subtree(in_focus, ptr, ptr.split('/')[0]);
+        auto model = subtree(in_focus, ptr, ptr.split('/').last());
 
         if(model) {
             ui->view_object->setModel(model);
