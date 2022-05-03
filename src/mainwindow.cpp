@@ -16,10 +16,11 @@ using namespace rapidjson;
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    tweak_ui();
 
     load_settings();
 
-    open_documents = new OpenTabs;
+    open_tabs = new OpenTabs;
 
     in_focus = nullptr;
 
@@ -27,8 +28,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->btn_topbar_open, &QPushButton::clicked, this, &MainWindow::open_json);
     connect(ui->tabs_main->tabBar(), &QTabBar::tabCloseRequested, this, &MainWindow::close_tab);
     connect(ui->tabs_main->tabBar(), &QTabBar::currentChanged, this, [this](int index) {
-        if(index && open_documents->size())
-            in_focus = open_documents->at_index(index)->tab;
+        if(index && open_tabs->size())
+            in_focus = open_tabs->at_index(index)->tab;
     });
     connect(ui->search, &QLineEdit::textChanged, this, &MainWindow::search);
     connect(ui->btn_topbar_github, &QPushButton::clicked, this, []() {
@@ -47,11 +48,11 @@ void MainWindow::close_tab(const int index)
     ui->tabs_main->removeTab(index);
     delete widget;
 
-    if(open_documents->size())
-        open_documents->remove(index);
+    if(open_tabs->size())
+        open_tabs->remove(index);
 
-    if(open_documents->size())
-        in_focus = open_documents->at_index(ui->tabs_main->currentIndex())->tab;
+    if(open_tabs->size())
+        in_focus = open_tabs->at_index(ui->tabs_main->currentIndex())->tab;
 }
 
 void MainWindow::display_msg_box(const QString msg, const QString title)
@@ -118,7 +119,7 @@ void MainWindow::open_json()
             JsonFile *json = new JsonFile(filename, doc);
 
             JsonTab *tab = new JsonTab(json, settings);
-            open_documents->append(tab);
+            open_tabs->append(tab);
             in_focus = tab;
 
             int index = ui->tabs_main->addTab(tab, filename.mid(path.length() + 1));
@@ -160,6 +161,15 @@ void MainWindow::search(const QString &text)
             ui->view_object->expand(model->index(0, 0));
         }
     }
+}
+
+void MainWindow::tweak_ui()
+{
+    QIcon search_icon;
+    search_icon.addPixmap(QPixmap::fromImage(QImage(":/gfx/icons/search.svg")));
+
+    ui->search->setFrame(false);
+    ui->search->addAction(search_icon, QLineEdit::TrailingPosition);
 }
 
 QStandardItemModel *MainWindow::subtree(const JsonTab *tab, const QByteArray &ptr, const QByteArray &key)

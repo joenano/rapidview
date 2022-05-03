@@ -21,7 +21,7 @@ public:
 
 private:
     JsonTab *in_focus;
-    OpenTabs *open_documents;
+    OpenTabs *open_tabs;
     Settings *settings;
     Ui::MainWindow *ui;
 
@@ -34,6 +34,7 @@ private:
     void open_json();
     QByteArray read_file(const QString &filename);
     void search(const QString &text);
+    void tweak_ui();
     QStandardItemModel *subtree(const JsonTab *tab, const QByteArray &ptr, const QByteArray &key);
     void view_clicked(const QModelIndex &index);
 };
