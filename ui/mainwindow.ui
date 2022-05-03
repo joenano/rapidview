@@ -154,7 +154,7 @@ QTreeView::item::selected {
       <property name="minimumSize">
        <size>
         <width>0</width>
-        <height>49</height>
+        <height>56</height>
        </size>
       </property>
       <property name="maximumSize">
@@ -241,7 +241,7 @@ QPushButton#btn_topbar_github::hover {
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>34</height>
+           <height>35</height>
           </size>
          </property>
          <property name="cursor">
@@ -285,7 +285,7 @@ QPushButton#btn_topbar_github::hover {
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>31</height>
+           <height>35</height>
           </size>
          </property>
          <property name="cursor">
@@ -610,7 +610,7 @@ QPushButton {
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <property name="spacing">
-         <number>14</number>
+         <number>21</number>
         </property>
         <property name="leftMargin">
          <number>7</number>
