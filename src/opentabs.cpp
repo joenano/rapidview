@@ -6,7 +6,7 @@ void OpenTabs::append(JsonTab *tab)
         root = new OpenTab(tab);
     }
     else {
-        OpenTab *ptr = end();
+        OpenTab *ptr = at_index(_size - 1);
         ptr->next = new OpenTab(tab, ptr);
     }
 
@@ -18,16 +18,6 @@ OpenTab *OpenTabs::at_index(int index)
     OpenTab *ptr = root;
 
     for(int i = 0; i < index; i++)
-        ptr = ptr->next;
-
-    return ptr;
-}
-
-OpenTab *OpenTabs::end()
-{
-    OpenTab *ptr = root;
-
-    for(int i = 1; i < _size; i++)
         ptr = ptr->next;
 
     return ptr;

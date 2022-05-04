@@ -37,9 +37,9 @@ public:
     QTreeView *view;
 
 private:
+    Ui::JsonTab *ui;
     QStandardItemModel *model;
     Settings *settings;
-    Ui::JsonTab *ui;
 
 public:
     explicit JsonTab(JsonFile *json, Settings *settings, QWidget *parent = nullptr);

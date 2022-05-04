@@ -21,8 +21,6 @@ private:
 
     OpenTab *root;
 
-    OpenTab *end();
-
 public:
     OpenTabs(): _size(0), root(nullptr) {};
 

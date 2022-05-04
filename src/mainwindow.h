@@ -25,8 +25,9 @@ private:
     Settings *settings;
     Ui::MainWindow *ui;
 
-    QHash<QByteArray, QStandardItemModel*> subtree_models;
+    QHash<QString, QHash<QByteArray, QStandardItemModel*>> subtree_models;
 
+    void clear_subtree_model(const QString &key);
     void close_tab(const int index);
     void display_msg_box(const QString msg, const QString title="Error");
     void load_settings();

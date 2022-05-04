@@ -42,14 +42,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::clear_subtree_model(const QString &key)
+{
+    for(auto i = subtree_models[key].begin(); i != subtree_models[key].end(); i++)
+        delete *i;
+
+    subtree_models.remove(key);
+}
+
 void MainWindow::close_tab(const int index)
 {
     QWidget *widget = ui->tabs_main->widget(index);
     ui->tabs_main->removeTab(index);
     delete widget;
 
-    if(open_tabs->size())
+    if(open_tabs->size()) {
+        clear_subtree_model(open_tabs->at_index(index)->tab->json->filename);
         open_tabs->remove(index);
+    }
 
     if(open_tabs->size())
         in_focus = open_tabs->at_index(ui->tabs_main->currentIndex())->tab;
@@ -95,8 +105,6 @@ QByteArray MainWindow::make_pointer(const QByteArrayList &keys)
 void MainWindow::open_json()
 {
     static QString path = QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).at(0);
-
-    path = "/home/slevin/code/python/form_tools/data/json";
 
     const QString filename = QFileDialog::getOpenFileName(this, tr("Open JSON"), path, tr("JSON Files (*.json)"));
 
@@ -149,9 +157,9 @@ void MainWindow::search(const QString &text)
 
     QByteArray ptr = text.toUtf8();
 
-    if(subtree_models.contains(ptr)) {
-        ui->view_object->setModel(subtree_models[ptr]);
-        ui->view_object->expand(subtree_models[ptr]->index(0, 0));
+    if(subtree_models[in_focus->json->filename].contains(ptr)) {
+        ui->view_object->setModel(subtree_models[in_focus->json->filename][ptr]);
+        ui->view_object->expand(subtree_models[in_focus->json->filename][ptr]->index(0, 0));
     }
     else {
         auto model = subtree(in_focus, ptr, ptr.split('/').last());
@@ -174,8 +182,8 @@ void MainWindow::tweak_ui()
 
 QStandardItemModel *MainWindow::subtree(const JsonTab *tab, const QByteArray &ptr, const QByteArray &key)
 {
-    if(subtree_models.contains(ptr))
-        return subtree_models[ptr];
+    if(subtree_models[tab->json->filename].contains(ptr))
+        return subtree_models[tab->json->filename][ptr];
 
     QStandardItemModel *model = nullptr;
 
@@ -189,7 +197,7 @@ QStandardItemModel *MainWindow::subtree(const JsonTab *tab, const QByteArray &pt
     }
 
     if(model)
-        subtree_models[ptr] = model;
+        subtree_models[tab->json->filename][ptr] = model;
 
     return model;
 }
