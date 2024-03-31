@@ -28,7 +28,6 @@ private:
     void clear_subtree_model(const QString &key);
     void close_tab(const int index);
     void display_msg_box(const QString msg, const QString title="Error");
-    void load_settings();
     QByteArray make_pointer(const QByteArrayList &keys);
     void open_json();
     QByteArray read_file(const QString &filename);

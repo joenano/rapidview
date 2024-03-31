@@ -1,6 +1,6 @@
 #include "jsonview.h"
 
-#include "ui/ui_jsontab.h"
+#include "./ui/ui_jsonview.h"
 
 #include <QElapsedTimer>
 

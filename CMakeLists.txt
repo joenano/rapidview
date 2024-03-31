@@ -13,21 +13,21 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(UI
-    ui/mainwindow.ui
-    ui/jsontab.ui
+    src/ui/mainwindow.ui
+    src/ui/jsonview.ui
 )
 
 set(HEADER
-    jsonview.h
-    mainwindow.h
-    tabs.h
+    src/jsonview.h
+    src/mainwindow.h
+    src/tabs.h
 )
 
 set(SRC
-    jsonview.cpp
-    main.cpp
-    mainwindow.cpp
-    tabs.cpp
+    src/jsonview.cpp
+    src/main.cpp
+    src/mainwindow.cpp
+    src/tabs.cpp
 )
 
 set(PROJECT_SOURCES

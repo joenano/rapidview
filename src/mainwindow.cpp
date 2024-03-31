@@ -20,8 +20,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->setupUi(this);
     ui->input_ptr->setFrame(false);
 
-    load_settings();
-
     open_tabs = new Tabs;
 
     current_json_view = nullptr;
@@ -72,14 +70,6 @@ void MainWindow::display_msg_box(const QString msg, const QString title)
     msg_box.setIcon(QMessageBox::Critical);
     msg_box.addButton(QMessageBox::Ok);
     msg_box.exec();
-}
-
-void MainWindow::load_settings()
-{
-    QByteArray json = read_file("../../settings/settings.json");
-
-    Document *doc = new Document;
-    doc->ParseInsitu(json.data());
 }
 
 QByteArray MainWindow::make_pointer(const QByteArrayList &keys)
