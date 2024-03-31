@@ -11,111 +11,116 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RapidView</string>
+   <string>Dayjur</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {
+	background: #282828;
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
     <string notr="true">QLabel {
-	color: #939393;
+    color: #939393;
 }
 
 QFrame {
-	background: #282828;
-	border: 0;
+    background: #282828;
+    border: 0;
 }
 
 QFrame#fr_topbar {
-	border-bottom: 1px solid #232323;
+    border-bottom: 1px solid #232323;
 }
 
 QFrame#fr_info {
-	border-left: 1px solid #232323;
+    border-left: 1px solid #232323;
 }
 
 QScrollBar:vertical {
     border: none;
-	border-radius: 3px;
-	background: #282828;
-    width: 10px;    
-	margin: 0px 0px 0px 0px;
+    border-radius: 3px;
+    background: #282828;
+    width: 10px;
+    margin: 0px 0px 0px 0px;
 }
 
-QScrollBar::handle:vertical {         
-	min-height: 21px;
-	border-radius: 3px;
-	background: #535353;
+QScrollBar::handle:vertical {
+    min-height: 21px;
+    border-radius: 3px;
+    background: #535353;
 }
 
-QScrollBar::add-line:vertical {       
-	height: 0px;
+QScrollBar::add-line:vertical {
+    height: 0px;
     subcontrol-position: bottom;
     subcontrol-origin: margin;
 }
 
 QScrollBar::sub-line:vertical {
-	height: 0 px;
+    height: 0 px;
     subcontrol-position: top;
-	subcontrol-origin: margin;
+    subcontrol-origin: margin;
 }
 
 QScrollBar:horizontal {
     border: none;
-	border-radius: 3px;
-	background: #282828;
-    height: 10px;    
-	margin: 0px 0px 0px 0px;
+    border-radius: 3px;
+    background: #282828;
+    height: 10px;
+    margin: 0px 0px 0px 0px;
 }
 
-QScrollBar::handle:horizontal {         
-	min-width: 0px;
-	border-radius: 3px;
-	background-color: #535353;
+QScrollBar::handle:horizontal {
+    min-width: 0px;
+    border-radius: 3px;
+    background-color: #535353;
 }
 
-QScrollBar::add-line:horizontal {       
-	width: 0px;
+QScrollBar::add-line:horizontal {
+    width: 0px;
     subcontrol-position: bottom;
     subcontrol-origin: margin;
 }
 
 QScrollBar::sub-line:horizontal {
-	width: 0 px;
+    width: 0 px;
     subcontrol-position: top;
-	subcontrol-origin: margin;
+    subcontrol-origin: margin;
 }
 
 QTreeView {
-	outline: 0;
-	border: none;
+    outline: 0;
+    border: none;
 }
 
 QTreeView::branch {
-	padding: 7px;
+    padding: 7px;
 }
 
 QTreeView::branch:has-siblings:!adjoins-item {
-    border-image: url(://gfx/icons/treeview/vline.png) 0;
+    border-image: url(:/gfx/icons/treeview/vline.png) 0;
 }
 
 QTreeView::branch:has-siblings:adjoins-item {
-    border-image: url(://gfx/icons/treeview/branch-more.png) 0;
+    border-image: url(:/gfx/icons/treeview/branch-more.png) 0;
 }
 
 QTreeView::branch:!has-children:!has-siblings:adjoins-item {
-    border-image: url(://gfx/icons/treeview/branch-end.png) 0;
+    border-image: url(:/gfx/icons/treeview/branch-end.png) 0;
 }
 
 QTreeView::branch:has-children:!has-siblings:closed,
 QTreeView::branch:closed:has-children:has-siblings {
         border-image: none;
-        image: url(://gfx/icons/treeview/branch-closed.svg);
+        image: url(:/gfx/icons/treeview/branch-closed.svg);
 }
 
 QTreeView::branch:open:has-children:!has-siblings,
 QTreeView::branch:open:has-children:has-siblings  {
         border-image: none;
-		padding: 5px;
-        image: url(://gfx/icons/treeview/branch-open.svg);
+        padding: 5px;
+        image: url(:/gfx/icons/treeview/branch-open.svg);
 }
 
 QTreeView::branch::selected {
@@ -123,14 +128,14 @@ QTreeView::branch::selected {
 }
 
 QTreeView::item {
-	padding: 3;
-	color: #f3f3f3;
+    padding: 3;
+    color: #f3f3f3;
 }
 
 QTreeView::item::selected {
-	padding-left: 0;
-	background: #535353;
-	color: #e3e3e3;
+    padding-left: 0;
+    background: #535353;
+    color: #e3e3e3;
 }</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -170,48 +175,48 @@ QTreeView::item::selected {
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
-	padding: 3px;
-	border: none;
+    padding: 3px;
+    border: none;
 }
 
 QPushButton#btn_topbar_open {
-	image: url(:/gfx/icons/file_open.svg);
+    image: url(:/gfx/icons/file_open.svg);
 }
 
 QPushButton#btn_topbar_open::hover {
-	image: url(:/gfx/icons/file_open_hover.svg);
+    image: url(:/gfx/icons/file_open_hover.svg);
 }
 
 QPushButton#btn_topbar_save {
-	image: url(:/gfx/icons/save.svg);
+    image: url(:/gfx/icons/save.svg);
 }
 
 QPushButton#btn_topbar_save::hover {
-	image: url(:/gfx/icons/save_hover.svg);
+    image: url(:/gfx/icons/save_hover.svg);
 }
 
 QPushButton#btn_topbar_save_as {
-	image: url(:/gfx/icons/save_as.svg);
+    image: url(:/gfx/icons/save_as.svg);
 }
 
 QPushButton#btn_topbar_save_as::hover {
-	image: url(:/gfx/icons/save_as_hover.svg);
+    image: url(:/gfx/icons/save_as_hover.svg);
 }
 
 QPushButton#btn_topbar_settings{
-	image: url(:/gfx/icons/settings.svg);
+    image: url(:/gfx/icons/settings.svg);
 }
 
 QPushButton#btn_topbar_settings::hover {
-	image: url(:/gfx/icons/settings_hover.svg);
+    image: url(:/gfx/icons/settings_hover.svg);
 }
 
 QPushButton#btn_topbar_github {
-	image: url(:/gfx/icons/github.svg);
+    image: url(:/gfx/icons/github.svg);
 }
 
 QPushButton#btn_topbar_github::hover {
-	image: url(:/gfx/icons/github_hover.svg);
+    image: url(:/gfx/icons/github_hover.svg);
 }</string>
       </property>
       <property name="frameShape">
@@ -253,6 +258,10 @@ QPushButton#btn_topbar_github::hover {
          <property name="text">
           <string/>
          </property>
+         <property name="icon">
+          <iconset resource="../resource.qrc">
+           <normaloff>:/gfx/icons/file_open.svg</normaloff>:/gfx/icons/file_open.svg</iconset>
+         </property>
          <property name="iconSize">
           <size>
            <width>28</width>
@@ -273,37 +282,6 @@ QPushButton#btn_topbar_github::hover {
           </size>
          </property>
         </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_topbar_github">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>35</height>
-          </size>
-         </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="toolTip">
-          <string>View on Github</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>21</width>
-           <height>21</height>
-          </size>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -360,53 +338,53 @@ QPushButton#btn_topbar_github::hover {
            </property>
            <property name="styleSheet">
             <string notr="true">QTabBar::scroller {
-	width: 42px;
+    width: 42px;
 }
 
 QTabBar QToolButton {
-	background: #303030;
+    background: #303030;
     border-width: 1px;
 }
 
 QTabWidget::pane {
-	top: -1px;
-	border: 0;
-} 
+    top: -1px;
+    border: 0;
+}
 
 QTabBar::close-button {
-	padding-top: 3px;
-    image: url(://gfx/icons/close.svg);
+    padding-top: 3px;
+    image: url(:/gfx/icons/close.svg);
  }
 
 QTabBar::close-button:hover {
-	padding-top: 3px;
-    image: url(://gfx/icons/close_hover.svg);
+    padding-top: 3px;
+    image: url(:/gfx/icons/close_hover.svg);
 }
 
  QTabBar::tab {
-	width: 161px;
-	padding: 7px;
-	margin-right: 1px;
-	margin-top: 7px;
-	background-color: #232323;
-	color: #838383;
-	border-top-right-radius:3px;
-	border-top-left-radius: 3px;
+    width: 161px;
+    padding: 7px;
+    margin-right: 1px;
+    margin-top: 7px;
+    background-color: #232323;
+    color: #838383;
+    border-top-right-radius:3px;
+    border-top-left-radius: 3px;
 }
 
-QTabBar::tab:selected { 
-  	background: #303030;
-	color: #c3c3c3;
-  	margin-bottom: -1px; 
+QTabBar::tab:selected {
+    background: #303030;
+    color: #c3c3c3;
+    margin-bottom: -1px;
 }
 
 QFrame {
-	border: 0;
-	background: #303030;
+    border: 0;
+    background: #303030;
 }
 
 QPushButton {
-	background: #303030;
+    background: #303030;
 }</string>
            </property>
            <property name="currentIndex">
@@ -597,9 +575,9 @@ QPushButton {
       <widget class="QFrame" name="fr_sidepanel">
        <property name="styleSheet">
         <string notr="true">QLineEdit {
-	padding: 7px;
-	background: #f3f3f3;
-	border-radius: 4px;
+    padding: 7px;
+    background: #f3f3f3;
+    border-radius: 4px;
 }</string>
        </property>
        <property name="frameShape">
@@ -625,7 +603,7 @@ QPushButton {
          <number>14</number>
         </property>
         <item>
-         <widget class="QLabel" name="lbl_object_view">
+         <widget class="QLabel" name="lbl_view_object">
           <property name="text">
            <string>Object View</string>
           </property>
@@ -643,14 +621,14 @@ QPushButton {
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>40</width>
+              <width>21</width>
               <height>20</height>
              </size>
             </property>
            </spacer>
           </item>
           <item>
-           <widget class="QLineEdit" name="search">
+           <widget class="QLineEdit" name="input_ptr">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -681,7 +659,7 @@ QPushButton {
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>40</width>
+              <width>21</width>
               <height>20</height>
              </size>
             </property>

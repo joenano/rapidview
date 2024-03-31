@@ -1,0 +1,11 @@
+# ninja log v5
+0	6	0	CMakeFiles/clean.additional	ef993b15a92b8f11
+99	1293	1711881035443919280	CMakeFiles/rapidview.dir/rapidview_autogen/mocs_compilation.cpp.o	490f8acac0b5d6d
+7	9	0	clean	a31eedcededa8236
+2	99	1711881034243905648	rapidview_autogen/timestamp	462e830f469899e9
+2	99	1711881034243905648	/home/slevin/code/cpp/rapidview/build/debug/rapidview_autogen/mocs_compilation.cpp	462e830f469899e9
+99	1366	1711881035513920075	CMakeFiles/rapidview.dir/mainwindow.cpp.o	20997c6bed891bc4
+2	99	1711881034243905648	rapidview_autogen/mocs_compilation.cpp	462e830f469899e9
+1366	1493	1711881035640588180	rapidview	73dd532d2c7316ba
+2	99	1711881034243905648	/home/slevin/code/cpp/rapidview/build/debug/rapidview_autogen/timestamp	462e830f469899e9
+99	1331	1711881035480586363	CMakeFiles/rapidview.dir/main.cpp.o	b20dd031a3fb82b2
